@@ -1,0 +1,5 @@
+.idea/
+UrlShortener.Api/bin
+UrlShortener.Api/obj
+frontend/.vscode
+frontend/.angular
