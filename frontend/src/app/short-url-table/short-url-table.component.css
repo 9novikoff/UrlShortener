@@ -1,0 +1,86 @@
+/* Short URL Table Card Style */
+.short-url-table {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 40px auto;
+  max-width: 800px;
+  padding: 20px;
+}
+
+.short-url-card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.short-url-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.short-url-card p {
+  margin: 10px 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+.short-url-card .shortened-url {
+  font-weight: bold;
+  color: #4CAF50;
+  word-wrap: break-word;
+}
+
+.delete-btn {
+  padding: 10px 20px;
+  background-color: #ff4d4d;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 15px;
+}
+
+.delete-btn:hover {
+  background-color: #e04343;
+}
+
+.delete-btn:focus {
+  outline: none;
+}
+
+.delete-btn:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+
+/* Container for the Add URL Button */
+.add-url-btn-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Add URL Button Styling */
+.add-url-btn {
+  padding: 12px 24px;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-url-btn:hover {
+  background-color: #45a049;
+}
+
+.add-url-btn:focus {
+  outline: none;
+}
+

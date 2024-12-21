@@ -1,0 +1,15 @@
+<div class="short-url-table">
+  <!-- Add URL Button -->
+  <div class="add-url-btn-container">
+    <button class="add-url-btn" (click)="openAddUrlForm()">Add New URL</button>
+  </div>
+
+  <!-- Displaying the List of URLs -->
+  <div *ngFor="let url of urls" class="short-url-card">
+    <div>
+      <p><strong>Original URL:</strong> <span class="shortened-url">{{ url.originalUrl }}</span></p>
+      <p><strong>Shortened URL:</strong> <span class="shortened-url">{{ url.shortenedUrl }}</span></p>
+      <button class="delete-btn" (click)="deleteUrl(url.id)">Delete</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+<div class="short-url-container">
+    <h2>Generate Short URL</h2>
+    
+    <div class="url-input-container">
+      <label for="original-url">Enter Original URL:</label>
+      <input
+        type="text"
+        id="original-url"
+        [(ngModel)]="originalUrl"
+        placeholder="Enter the URL to shorten"
+      />
+    </div>
+  
+    <button class="generate-btn" (click)="generateShortUrl()">Generate Short URL</button>
+  
+    <div *ngIf="shortenedUrl" class="shortened-url-container">
+      <p><strong>Shortened URL:</strong> <span class="shortened-url">{{ shortenedUrl }}</span></p>
+    </div>
+  </div>
+  

@@ -1,0 +1,97 @@
+/* Main container styles */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #f9fafb;
+}
+
+/* Header styles for logo and authentication buttons */
+.app-header {
+  background-color: #1da1f2; /* Twitter-like blue color */
+  color: #ffffff;
+  padding: 1.2rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.3rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.app-header .logo {
+  font-weight: bold;
+  font-size: 1.6rem;
+}
+
+.auth-buttons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.auth-btn {
+  background-color: transparent;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+
+  &:hover {
+    background-color: #ffffff;
+    color: #1da1f2;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.login-btn {
+  background-color: #1da1f2;
+}
+
+.logout-btn {
+  background-color: #e0245e; /* Twitter-like red for logout */
+}
+
+/* Main content area styles */
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  overflow-y: auto;
+}
+
+/* Make content centered with modern spacing */
+.router-outlet {
+  width: 100%;
+  max-width: 800px;
+  padding: 2rem;
+  background-color: #f1f5f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive design adjustments */
+@media (max-width: 768px) {
+  .app-header {
+    padding: 1rem 1.5rem;
+    font-size: 1.2rem;
+  }
+
+  .auth-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  .main-content {
+    padding: 1rem;
+  }
+}

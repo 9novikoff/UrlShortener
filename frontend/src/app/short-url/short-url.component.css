@@ -1,0 +1,87 @@
+/* Container for the whole Short URL generation section */
+.short-url-container {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    max-width: 400px;
+    margin: 60px auto;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .short-url-container:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Title Styling */
+  h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #333;
+  }
+  
+  /* Input Container */
+  .url-input-container {
+    margin-bottom: 1.5rem;
+  }
+  
+  label {
+    font-size: 1rem;
+    color: #555;
+    display: block;
+    margin-bottom: 8px;
+  }
+  
+  /* Input Styling */
+  input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #333;
+    background-color: #f9f9f9;
+    transition: border 0.3s ease;
+    box-sizing: border-box;
+  }
+  
+  input:focus {
+    border-color: #4CAF50;
+    outline: none;
+  }
+  
+  /* Generate Button */
+  .generate-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .generate-btn:hover {
+    background-color: #45a049;
+  }
+  
+  .generate-btn:focus {
+    outline: none;
+  }
+  
+  /* Shortened URL Display */
+  .shortened-url-container {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .shortened-url {
+    font-weight: bold;
+    color: #4CAF50;
+    word-wrap: break-word;
+  }
+  

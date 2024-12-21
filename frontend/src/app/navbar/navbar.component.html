@@ -1,0 +1,12 @@
+<nav class="navbar">
+    <div class="navbar-logo">
+      <a routerLink="/">UrlShortener</a>
+    </div>
+    <ul class="navbar-links">
+      <li *ngIf="!authService.isAuthenticated()"><a routerLink="/login">Sign In</a></li>
+      <li *ngIf="!authService.isAuthenticated()"><a routerLink="/register">Sign Up</a></li>
+      <li *ngIf="authService.isAuthenticated()"><a>Welcome, {{authService.getEmail() }}</a></li>
+      <li *ngIf="authService.isAuthenticated()"><a (click)="authService.logout()">Logout</a></li>
+    </ul>
+  </nav>
+  
