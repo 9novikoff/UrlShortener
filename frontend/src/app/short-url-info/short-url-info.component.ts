@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UrlService } from '../services/url.service';
 import { DetailedUrl } from '../models/detailed-url.model';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-short-url-info',
@@ -8,18 +9,18 @@ import { DetailedUrl } from '../models/detailed-url.model';
   styleUrls: ['./short-url-info.component.css'],
 })
 export class ShortUrlInfoComponent implements OnInit {
-  @Input() urlId!: string;
   detailedUrl!: DetailedUrl;
 
-  constructor(private urlService: UrlService) {}
+  constructor(private urlService: UrlService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.loadUrlDetails();
+    const urlId = this.route.snapshot.paramMap.get('id');
+    this.loadUrlDetails(urlId!);
   }
 
-  loadUrlDetails() {
-    if (this.urlId) {
-      this.urlService.getUrlById(this.urlId).subscribe(
+  loadUrlDetails(id: string) {
+    if (id) {
+      this.urlService.getUrlById(id).subscribe(
         (data) => {
           this.detailedUrl = data;
         },

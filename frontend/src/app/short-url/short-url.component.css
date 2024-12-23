@@ -1,4 +1,3 @@
-/* Container for the whole Short URL generation section */
 .short-url-container {
     background-color: white;
     border-radius: 10px;
@@ -14,7 +13,6 @@
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   }
   
-  /* Title Styling */
   h2 {
     font-size: 1.8rem;
     margin-bottom: 1.5rem;
@@ -22,7 +20,6 @@
     color: #333;
   }
   
-  /* Input Container */
   .url-input-container {
     margin-bottom: 1.5rem;
   }
@@ -34,7 +31,6 @@
     margin-bottom: 8px;
   }
   
-  /* Input Styling */
   input {
     width: 100%;
     padding: 12px;
@@ -52,7 +48,6 @@
     outline: none;
   }
   
-  /* Generate Button */
   .generate-btn {
     width: 100%;
     padding: 12px;
@@ -73,7 +68,6 @@
     outline: none;
   }
   
-  /* Shortened URL Display */
   .shortened-url-container {
     text-align: center;
     margin-top: 20px;
@@ -85,3 +79,9 @@
     word-wrap: break-word;
   }
   
+  .error-message {
+    color: red;
+    font-size: 0.875rem;
+    margin-top: 10px;
+    text-align: center;
+  }

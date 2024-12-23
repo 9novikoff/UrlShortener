@@ -26,6 +26,6 @@ export class RegisterComponent {
       return;
     }
 
-    this.authService.register(this.email, this.password);
+    this.authService.register(this.email, this.password).then((res: string) => this.errorMessage = res);
   }
 }

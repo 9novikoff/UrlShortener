@@ -8,10 +8,10 @@ public class MappingProfile: Profile
 {
     public MappingProfile()
     {
-        
         CreateMap<RegisterUserDto, User>();
         CreateMap<User, UserDto>();
         CreateMap<Url, UrlDto>();
+        CreateMap<UrlCreateDto, Url>();
         CreateMap<Url, UrlExtendedDto>();
     }
     

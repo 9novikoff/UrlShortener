@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UrlService } from '../services/url.service';
 import { Router } from '@angular/router';
@@ -13,18 +13,27 @@ import { Router } from '@angular/router';
 
 })
 export class ShortUrlComponent {
+  @Output() urlCreated = new EventEmitter();
+
   constructor(private urlService: UrlService, private router: Router) {
     
   }
   originalUrl: string = '';
   shortenedUrl: string = '';
+  errorMessage: string = '';
 
   generateShortUrl() {
-    if (this.originalUrl) {
-      this.urlService.createUrl(this.originalUrl).subscribe(res => this.shortenedUrl = res);
+    this.errorMessage = '';
 
+    if (this.originalUrl) {
+      this.urlService.createUrl(this.originalUrl).subscribe(res => 
+        {
+          this.shortenedUrl = res.shortUrl;
+          this.urlCreated.emit()
+        }, 
+        error => this.errorMessage = error.error);
     } else {
-      alert('Please enter a valid URL!');
+      this.errorMessage = 'Please enter a valid URL!';
     }
   }
 }

@@ -2,7 +2,7 @@
 
 namespace UrlShortener.Api.DAL.Repositories;
 
-class UrlsRepository : IUrlsRepository
+public class UrlsRepository : IUrlsRepository
 {
     private UrlsDbContext _dbContext;
 
@@ -39,6 +39,6 @@ class UrlsRepository : IUrlsRepository
 
     public async Task<Url?> GetUrlById(Guid id)
     {
-        return await _dbContext.FindAsync<Url>();
+        return await _dbContext.FindAsync<Url>(id);
     }
 }

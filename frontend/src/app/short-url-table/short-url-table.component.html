@@ -1,15 +1,12 @@
 <div class="short-url-table">
-  <!-- Add URL Button -->
-  <div class="add-url-btn-container">
-    <button class="add-url-btn" (click)="openAddUrlForm()">Add New URL</button>
-  </div>
+  <app-short-url (urlCreated)="loadUrls()"></app-short-url>
 
-  <!-- Displaying the List of URLs -->
   <div *ngFor="let url of urls" class="short-url-card">
     <div>
       <p><strong>Original URL:</strong> <span class="shortened-url">{{ url.originalUrl }}</span></p>
-      <p><strong>Shortened URL:</strong> <span class="shortened-url">{{ url.shortenedUrl }}</span></p>
-      <button class="delete-btn" (click)="deleteUrl(url.id)">Delete</button>
+      <p><strong>Shortened URL:</strong> <span class="shortened-url">{{ url.shortUrl }}</span></p>
+      <button *ngIf="authService.getId()==url.userId || authService.getRole()=='Admin'" class="info-btn" (click)="openUrlInfo(url.id)">More info</button>
+      <button *ngIf="authService.getId()==url.userId || authService.getRole()=='Admin'" class="delete-btn" (click)="deleteUrl(url.id)">Delete</button>
     </div>
   </div>
 </div>

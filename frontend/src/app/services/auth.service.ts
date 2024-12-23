@@ -1,30 +1,41 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { BehaviorSubject, firstValueFrom, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { catchError } from 'rxjs/operators';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private _isAuthenticated = new BehaviorSubject<boolean>(this.isAuthenticated());
-  private authUrl = 'http://localhost:5168';
   private tokenKey = 'token';
   
   constructor(private http: HttpClient, private router: Router) {}
   
-  register(email: string, password: string) {
+  async register(email: string, password: string) {
     const registerPayload = { email: email, password: password };
-    return this.http.post<any>(`${this.authUrl}/register`, registerPayload).subscribe(t => t);
+    try{
+      await firstValueFrom(this.http.post<any>(`${environment.apiUrl}/register`, registerPayload));
+      this.router.navigate(['login']);
+    }
+    catch(error){
+      return (error as HttpErrorResponse).error;
+    }
   }
 
-  login(email: string, password: string) {
+  async login(email: string, password: string) {
     const loginPayload = { email: email, password: password };
-
-    this.http.post<string>(`${this.authUrl}/login`, loginPayload).subscribe(t => this.saveToken(t));
+    try {
+      const token = await firstValueFrom(this.http.post(`${environment.apiUrl}/login`, loginPayload, {responseType: 'text'}));
+      this.saveToken(token!);
+      this.router.navigate(['']);
+      return '';
+    } catch (error) {
+      return (error as HttpErrorResponse).error;
   }
-
+}
   onLoginSuccess(token: string): void {
     localStorage.setItem(this.tokenKey, token);
     this._isAuthenticated.next(true);
@@ -34,19 +45,16 @@ export class AuthService {
     localStorage.setItem('token', token);
   }
 
-
   logout(): void {
     localStorage.removeItem(this.tokenKey);
     this._isAuthenticated.next(false);
     this.router.navigate(['/login']); 
   }
 
-
   isAuthenticated(): boolean {
     const token = this.getToken();
     return token != null && !this.isTokenExpired(token);
   }
-
 
   getToken(): string | null {
     return localStorage.getItem(this.tokenKey);
@@ -66,6 +74,15 @@ export class AuthService {
     if (token) {
       const decoded = this.decodeToken(token);
       return decoded?.role ?? null;
+    }
+    return null;
+  }
+
+  getId(): string | null {
+    const token = this.getToken();
+    if (token) {
+      const decoded = this.decodeToken(token);
+      return decoded?.sub ?? null;
     }
     return null;
   }
@@ -92,3 +109,5 @@ export class AuthService {
     return this._isAuthenticated.asObservable();
   }
 }
+
+

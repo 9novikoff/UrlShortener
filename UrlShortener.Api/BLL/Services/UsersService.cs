@@ -9,17 +9,17 @@ using UrlShortener.Api.DTO;
 
 namespace UrlShortener.Api.BLL.Services;
 
-class UsersService : IUsersService
+public class UsersService : IUsersService
 {
-    private readonly IUsersRepository _repository;
+    private readonly IUsersRepository _usersRepository;
     private readonly AbstractValidator<RegisterUserDto> _registerValidator;
     private readonly AbstractValidator<LoginUserDto> _loginValidator;
     private readonly IMapper _mapper;
     private readonly JwtGenerator _jwtGenerator;
 
-    public UsersService(IUsersRepository repository, AbstractValidator<RegisterUserDto> registerValidator, IMapper mapper, AbstractValidator<LoginUserDto> loginValidator, JwtGenerator jwtGenerator)
+    public UsersService(IUsersRepository usersRepository, AbstractValidator<RegisterUserDto> registerValidator, IMapper mapper, AbstractValidator<LoginUserDto> loginValidator, JwtGenerator jwtGenerator)
     {
-        _repository = repository;
+        _usersRepository = usersRepository;
         _registerValidator = registerValidator;
         _mapper = mapper;
         _loginValidator = loginValidator;
@@ -35,6 +35,9 @@ class UsersService : IUsersService
             return new UserCreationFailed(validationResult.ToString());
         }
 
+        if (_usersRepository.GetUsers().Any(x => x.Email == registerUser.Email))
+            return new UserCreationFailed("User with this email already exists");
+
         var user = _mapper.Map<User>(registerUser,
             opt => opt.AfterMap((_, dest) =>
             {
@@ -42,7 +45,7 @@ class UsersService : IUsersService
                 dest.Role = role;
             }));
 
-        var userDto = _mapper.Map<UserDto>(await _repository.InsertUser(user));
+        var userDto = _mapper.Map<UserDto>(await _usersRepository.InsertUser(user));
 
         return userDto;
     }
@@ -56,7 +59,7 @@ class UsersService : IUsersService
             return new LoginUserFailed(validationResult.ToString());
         }
 
-        var user = await _repository.GetUsers()
+        var user = await _usersRepository.GetUsers()
             .SingleOrDefaultAsync(u => u.Email == loginUserDto.Email);
 
         if (user == null)
@@ -72,4 +75,4 @@ class UsersService : IUsersService
         return _jwtGenerator.GenerateToken(user);
     }
     
-}
+} 

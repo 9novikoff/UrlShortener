@@ -83,6 +83,8 @@ builder.Services.AddSingleton<JwtGenerator>();
 builder.Services.AddScoped<IUsersService, UsersService>();
 builder.Services.AddScoped<IUrlsService, UrlsService>();
 
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())

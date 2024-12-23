@@ -4,12 +4,13 @@ import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { DetailedUrl } from '../models/detailed-url.model';
 import { Url } from '../models/url.model';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UrlService {
-  private apiUrl = 'http://localhost:8080/urls';
+  private apiUrl = environment.apiUrl + '/urls';
 
   constructor(private http: HttpClient) {}
 
@@ -18,7 +19,7 @@ export class UrlService {
   }
 
   getUrlById(id: string): Observable<DetailedUrl> {
-    return this.http.get<DetailedUrl>(`${this.apiUrl}?id=${id}`);
+    return this.http.get<DetailedUrl>(`${this.apiUrl}/${id}`);
   }
 
   createUrl(originalUrl: string): Observable<any> {
@@ -26,7 +27,7 @@ export class UrlService {
   }
 
   deleteUrl(id: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}?id=${id}`);
+    return this.http.delete(`${this.apiUrl}/${id}`);
   }
 
 }

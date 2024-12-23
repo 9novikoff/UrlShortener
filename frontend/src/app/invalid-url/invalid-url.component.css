@@ -1,0 +1,42 @@
+.invalid-url-container {
+    max-width: 600px;
+    margin: 100px auto;
+    text-align: center;
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .invalid-url-container h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: #dc3545;
+  }
+  
+  .invalid-url-container p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    color: #333;
+  }
+  
+  .back-btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .back-btn:hover {
+    background-color: #45a049;
+  }
+  
+  .back-btn:active {
+    transform: scale(0.95);
+  }
+  

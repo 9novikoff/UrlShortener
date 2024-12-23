@@ -9,7 +9,7 @@ using UrlShortener.Api.DTO;
 
 namespace UrlShortener.Api.BLL.Services;
 
-class UrlsService : IUrlsService
+public class UrlsService : IUrlsService
 {
     private readonly IUrlsRepository _urlsRepository;
     private readonly IUsersRepository _usersRepository;
@@ -31,7 +31,7 @@ class UrlsService : IUrlsService
         return _mapper.Map<List<UrlDto>>(urls);
     }
 
-    public async Task<ServiceResult<UrlDto, UrlAddFailed>> AddUrl(Guid userId, UrlCreateDto url)
+    public async Task<ServiceResult<UrlDto, UrlAddFailed>> AddUrl(Guid userId, UrlCreateDto url, string urlBase)
     {
         var validationResult = await _urlValidator.ValidateAsync(url);
 
@@ -49,7 +49,7 @@ class UrlsService : IUrlsService
         {
             dest.CreatedDate = DateTime.Now;
             dest.UserId = userId;
-            dest.ShortUrl = UrlHasher.Get8LengthHash(dest.OriginalUrl);
+            dest.ShortUrl = urlBase + UrlHasher.Get8LengthHash(dest.OriginalUrl);
         }));
 
         return _mapper.Map<UrlDto>(await _urlsRepository.InsertUrl(urlToInsert));
@@ -102,5 +102,17 @@ class UrlsService : IUrlsService
         }
 
         return _mapper.Map<UrlExtendedDto>(url, opt => opt.AfterMap((_, dest) => dest.CreatedBy = user.Email));
+    }
+
+    public async Task<ServiceResult<string, UrlAccessFailed>> GetUrlByShortUrl(string url)
+    {
+        var storedUrl = await _urlsRepository.GetUrls().SingleOrDefaultAsync(u => u.ShortUrl == url);
+
+        if (storedUrl == null)
+        {
+            return new UrlAccessFailed("Invalid url");
+        }
+
+        return storedUrl.OriginalUrl;
     }
 }

@@ -7,7 +7,6 @@ public class UrlsDbContext: DbContext
 {
     public UrlsDbContext(DbContextOptions<UrlsDbContext> options) : base(options)
     {
-        
     }
 
     public DbSet<Url> Urls { get; set; }

@@ -27,7 +27,7 @@ public class UrlsController: ControllerBase
     
     [Authorize]
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetDetailedUrl([FromQuery] Guid id)
+    public async Task<IActionResult> GetDetailedUrl(Guid id)
     {
         var serviceResult = await _service.GetUrlById(GetUserIdFromJwtToken(), id);
         return serviceResult.Match<IActionResult>(s => Ok(s), f => NotFound(f.ErrorMessage));
@@ -37,16 +37,18 @@ public class UrlsController: ControllerBase
     [HttpPost]
     public async Task<IActionResult> AddUrl(UrlCreateDto urlCreateDto)
     {
-        var serviceResult = await _service.AddUrl(GetUserIdFromJwtToken(), urlCreateDto);
+        var urlBase = $"{Request.Scheme}://{Request.Host}{Request.PathBase}/";
+        
+        var serviceResult = await _service.AddUrl(GetUserIdFromJwtToken(), urlCreateDto, urlBase);
 
         return serviceResult.Match<IActionResult>(s => Ok(s), f => NotFound(f.ErrorMessage));
     }
     
     [Authorize]
-    [HttpDelete]
-    public async Task<IActionResult> DeleteUrl([FromQuery]Guid urlId)
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteUrl(Guid id)
     {
-        var serviceResult = await _service.DeleteUrl(GetUserIdFromJwtToken(), urlId);
+        var serviceResult = await _service.DeleteUrl(GetUserIdFromJwtToken(), id);
 
         return serviceResult.Match<IActionResult>(s => Ok(), f => NotFound(f.ErrorMessage));
     }

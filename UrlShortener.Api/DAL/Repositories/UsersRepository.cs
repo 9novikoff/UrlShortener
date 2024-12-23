@@ -3,7 +3,7 @@ using UrlShortener.Api.DAL.Entities;
 
 namespace UrlShortener.Api.DAL.Repositories;
 
-class UsersRepository : IUsersRepository
+public class UsersRepository : IUsersRepository
 {
     private readonly UrlsDbContext _dbContext;
 
